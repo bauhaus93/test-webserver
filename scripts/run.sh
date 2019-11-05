@@ -6,7 +6,5 @@ cd test-elm && \
 	scripts/build.sh
 
 cd $BASE && \
-	docker-compose up --build --remove -d postgres nginx
-
-cd test-backend/server && \
-	scripts/run_release.sh
+	docker-compose down -v  && \
+	docker-compose up --build --remove --abort-on-container-exit
