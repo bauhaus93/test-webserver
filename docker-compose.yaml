@@ -16,6 +16,8 @@ services:
     postgres:
         image: backend-postgres:latest
         build: test-backend/postgresql/
+        ports:
+            - "5432:5432"
         networks:
             backend:
                 ipv4_address: "172.16.10.11"
