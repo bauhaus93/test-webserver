@@ -39,9 +39,9 @@ rsync -a $NGINX_DIR/* $NGINX_CONTEXT_DIR/ && \
 rsync -a $POSTGRES_DIR/* $POSTGRES_CONTEXT_DIR/ && \
 rsync -a $SERVER_DIR/* $SERVER_CONTEXT_DIR/ --exclude target && \
 cp -r $ELM_BUILD_DIR/* $NGINX_CONTEXT_DIR/www && \
-envsubst < $NGINX_DIR/nginx.conf > $NGINX_CONTEXT_DIR/nginx.conf && \
-envsubst < $POSTGRES_DIR/postgresql.conf > $POSTGRES_CONTEXT_DIR/postgresql.conf && \
-envsubst < $POSTGRES_DIR/pg_hba.conf > $POSTGRES_CONTEXT_DIR/pg_hba.conf && \
+envsubst < $NGINX_DIR/nginx.conf.in > $NGINX_CONTEXT_DIR/nginx.conf && \
+envsubst < $POSTGRES_DIR/postgresql.conf.in > $POSTGRES_CONTEXT_DIR/postgresql.conf && \
+envsubst < $POSTGRES_DIR/pg_hba.conf.in > $POSTGRES_CONTEXT_DIR/pg_hba.conf && \
 envsubst < $SERVER_DIR/settings.toml.in > $SERVER_CONTEXT_DIR/settings.toml && \
 docker-compose down -v  && \
 docker-compose up --build --remove --abort-on-container-exit
