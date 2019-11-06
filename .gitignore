@@ -1,3 +1,6 @@
 backend-server/
 frontend-elm/
 build/
+*.key
+*.crt
+*.pem

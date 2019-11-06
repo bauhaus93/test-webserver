@@ -1,4 +1,4 @@
-worker_processes 8;
+worker_processes auto;
 pid /tmp/nginx.pid;
 error_log /var/log/nginx/nginx_error.log;
 
@@ -13,11 +13,15 @@ http {
     access_log /var/log/nginx/nginx_access.log;
     types_hash_max_size 4096;
     server_names_hash_bucket_size 128;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 10m;
 
     server {
         server_name localhost;
-        listen ${NGINX_PORT};
+        listen ${NGINX_PORT} ssl;
         root /var/www;
+        ssl_certificate localhost.crt;
+        ssl_certificate_key localhost.key;
 
         location ~* ^/[a-z]*\.(js|css|ico|html)$ {
             expires 30d;
