@@ -8,9 +8,10 @@ SERVER_DIR="$PWD/backend-server"
 NGINX_DIR="$INFRA_DIR/nginx"
 POSTGRES_DIR="$INFRA_DIR/postgresql"
 
-ELM_BUILD_DIR="$ELM_DIR/build"
+ELM_WWW_DIR="$ELM_DIR/www"
 SERVER_CONTEXT_DIR="$BUILD_DIR/server"
 NGINX_CONTEXT_DIR="$BUILD_DIR/nginx"
+NGINX_WWW_DIR="$NGINX_CONTEXT_DIR/www"
 POSTGRES_CONTEXT_DIR="$BUILD_DIR/postgresql"
 
 BACKEND_SUBNET="172.16.10.0/24"
@@ -31,14 +32,14 @@ export FRONTEND_SUBNET FRONTEND_SERVER_IP FRONTEND_NGINX_IP
 export POSTGRES_PORT NGINX_PORT SERVER_PORT
 
 rm -rf $BUILD_DIR && \
-mkdir -p $BUILD_DIR $NGINX_CONTEXT_DIR $POSTGRES_CONTEXT_DIR $SERVER_CONTEXT_DIR && \
+mkdir -p $BUILD_DIR $NGINX_CONTEXT_DIR $NGINX_WWW_DIR $POSTGRES_CONTEXT_DIR $SERVER_CONTEXT_DIR && \
 pushd $ELM_DIR && \
 scripts/build.sh && \
 popd && \
 rsync -a $NGINX_DIR/* $NGINX_CONTEXT_DIR/ && \
 rsync -a $POSTGRES_DIR/* $POSTGRES_CONTEXT_DIR/ && \
 rsync -a $SERVER_DIR/* $SERVER_CONTEXT_DIR/ --exclude target && \
-cp -r $ELM_BUILD_DIR/* $NGINX_CONTEXT_DIR/www && \
+cp -r $ELM_WWW_DIR/* $NGINX_WWW_DIR && \
 envsubst < $NGINX_DIR/nginx.conf.in > $NGINX_CONTEXT_DIR/nginx.conf && \
 envsubst < $POSTGRES_DIR/postgresql.conf.in > $POSTGRES_CONTEXT_DIR/postgresql.conf && \
 envsubst < $POSTGRES_DIR/pg_hba.conf.in > $POSTGRES_CONTEXT_DIR/pg_hba.conf && \
