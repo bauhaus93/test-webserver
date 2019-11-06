@@ -1,3 +1,4 @@
-test-backend/
-test-elm/
-log/
+backend-server/
+frontend-elm/
+infrastructure/
+build/
