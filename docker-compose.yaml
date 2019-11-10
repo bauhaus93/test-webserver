@@ -13,8 +13,9 @@ services:
             frontend:
                 ipv4_address: ${FRONTEND_NGINX_IP}
         volumes:
-        volumes:
             - "vol-log-nginx:/var/log/nginx"
+        depends_on:
+            - "server-backend"
 
     postgres:
         image: backend-postgres:latest
@@ -38,6 +39,8 @@ services:
                 ipv4_address: ${BACKEND_SERVER_IP}
             frontend:
                 ipv4_address: ${FRONTEND_SERVER_IP}
+        depends_on:
+            - "postgres"
 volumes:
     vol-pg-data:
     vol-log-pg:

@@ -20,8 +20,8 @@ http {
         server_name localhost;
         listen ${NGINX_PORT} ssl;
         root /var/www;
-        ssl_certificate localhost.crt;
-        ssl_certificate_key localhost.key;
+        ssl_certificate nginx.crt;
+        ssl_certificate_key nginx.key;
 
         location ~* ^/[a-z]*\.(js|css|ico|html)$ {
             expires 30d;
